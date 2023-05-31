@@ -1,0 +1,14 @@
+.DS_Store
+datasets
+resource
+*ipynb
+out*
+data/*
+coco
+meta_run
+scripts
+wandb
+logs
+ipynb_checkpoints
+*.ipynb
+__pycache__
