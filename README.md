@@ -1,7 +1,8 @@
-# ZIN: When and How to Learn Invariance Without Environment Partition?
+# CasualDro
 The repo for ZIN: When and How to Learn Invariance Without Environment Partition?
 
-This project is implemented based on [IRM](https://github.com/facebookresearch/InvariantRiskMinimization), [eiil](https://github.com/ecreager/eiil) and [In-N-Out](https://github.com/p-lambda/in-n-out).
+This project is implemented based on [ZIN]
+
 
 
 # Requirements
@@ -35,6 +36,7 @@ bash data_downloader.sh
 Dataset Discriptions:
 * HousePrice.  This is implemented based on the house price dataset from [Kaggle](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data)
 * CelebA. The dataset is from [here](https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html). Since IRM suffers from overfitting problem when applied to large models like ResNet-18, we fix the feature extraction backbone (that is, use a pre-trained ResNet-18 with fixed blocks) in this task. One may avoid this limitation by incorperate overfitting robust IRM variants like [1][2][3].
+
 * Landcover. Our implementation on landcover is based on the source code of [In-N-Out](https://github.com/p-lambda/in-n-out). Notably, we use exact the same random seed as In-N-Out.
 
 [1] Yong Lin, Hanze Dong, Hao Wang, Tong Zhang, Bayesian Invariant Risk Minimization, CVPR 2022 
@@ -127,13 +129,3 @@ For help or issues using ZIN, please submit a GitHub issue.
 
 For personal communication related to ZIN, please contact Yong Lin (`ylindf@connect.ust.hk`).
 
-# Reference 
-If you use or extend our work, please cite the following paper:
-```
-@inproceedings{lin2022zin,
-  title={ZIN: When and How to Learn Invariance Without Environment Partition?},
-  author={Lin, Yong and Zhu, Shengyu and Tan, Lu and Cui, Peng},
-  booktitle={Advances in neural information processing systems},
-  year={2022}
-}
-```

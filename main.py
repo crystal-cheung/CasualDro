@@ -28,7 +28,8 @@ parser.add_argument('--dim_inv', type=int, default=2)
 parser.add_argument('--dim_spu', type=int, default=10)
 parser.add_argument('--data_num_train', type=int, default=2000)
 parser.add_argument('--data_num_test', type=int, default=2000)
-parser.add_argument('--lr', type=float, default=0.001)
+parser.add_argument('--lr', type=float, default
+                    =0.001)
 parser.add_argument('--env_type', default="linear", type=str,
                     choices=["2_group", "cos", "linear"])
 parser.add_argument('--irm_type', default="irmv1", type=str,
@@ -77,7 +78,6 @@ for restart in range(flags.n_restarts):
         scheduler = CosineLR(optimizer, flags.lr, flags.steps)
 
     scale = torch.tensor(1.).cuda().requires_grad_()
-    # pdb.set_trace()
     algo = algorithm_builder(flags, dp)
     if flags.irm_type == "drof":
         params = list(mlp.parameters()) + [algo.eta,]
@@ -157,7 +157,7 @@ for restart in range(flags.n_restarts):
                 test_logits = mlp(test_x)
                 meta_acc_test.process_batch(test_y, test_logits, test_g)
             meta_acc_test_res = meta_acc_test.meta_acc
-
+            
             if val_batch_num:
                 val_accs = []
                 for ii in range(val_batch_num):
@@ -204,6 +204,19 @@ for restart in range(flags.n_restarts):
     print(np.mean(final_train_accs), np.std(final_train_accs))
     print('Final test acc (mean/std across restarts so far):')
     print(np.mean(final_test_accs), np.std(final_test_accs))
+    
+    #load the saved numpy array
+    final_test_acc=np.load("final_test_acc.npy")
+    worst_test_acc=np.load("worst_test_acc.npy")
+    
+    #save the mean of accs in the loaded numpy array
+    final_test_acc=np.append(final_test_acc,np.mean(final_test_accs))
+    worst_test_acc = np.append(worst_test_acc, np.min([meta_acc_test_res[fd].detach().cpu().numpy()
+                                                      for fd in meta_acc_test.acc_fields]))
+    print("final_test_acc:",final_test_acc)
+    print("worst_test_acc:",worst_test_acc)
+    np.save("final_test_acc.npy",final_test_acc)
+    np.save("worst_test_acc.npy",worst_test_acc)
 
     if val_batch_num:
         print("best results:")

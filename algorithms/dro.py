@@ -48,7 +48,7 @@ class DRO:
                 train_logits, train_y, reduction="none")
        
 
-        infered_envs = self.infer_env(normed_x)
+        infered_envs = self.infer_env(normed_z)
 
         cons_infered_envs=(infered_envs.mean()-self.infer_env_mean)**2
 
