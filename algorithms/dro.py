@@ -1,4 +1,4 @@
-from .model import InferEnv
+from .model import InferEnv, InferEnvMultiClass
 import pdb
 import torch
 from torch.nn import Parameter
@@ -18,15 +18,14 @@ class DRO:
         # print("infer_env_mean",self.infer_env_mean)
         if flags.dataset == "logit_z":
             self.infer_env = InferEnv(flags, z_dim=1).cuda()
-        # self.infer_env.load_state_dict(torch.load("infered_envs1.pt"))
-        # elif flags.dataset == "celebaz_feature":
-        #     infer_env = InferEnv(flags, z_dim=7, class_num=flags.z_class_num).cuda()
-        # elif flags.dataset == "house_price":
-        #     infer_env = InferEnvMultiClass(flags, z_dim=1, class_num=flags.z_class_num).cuda()
-        # elif flags.dataset == 'landcover':
-        #     infer_env = InferEnvMultiClass(flags, z_dim=flags.aux_num, class_num=flags.z_class_num).cuda()
-        # else:
-        #     raise Exception
+        elif flags.dataset == "celebaz_feature":
+            self.infer_env = InferEnvMultiClass(flags, z_dim=flags.aux_num, class_num=flags.z_class_num).cuda()
+        elif flags.dataset == "house_price":
+            self.infer_env = InferEnvMultiClass(flags, z_dim=1, class_num=flags.z_class_num).cuda()
+        elif flags.dataset == 'landcover':
+            self.infer_env = InferEnvMultiClass(flags, z_dim=flags.aux_num, class_num=flags.z_class_num).cuda()
+        else:
+            raise Exception
         self.params=list(self.infer_env.parameters()) # +[self.eta,]
         self.optimizer_infer_env = torch.optim.Adam(self.params, lr=0.01)
         self.flags = flags
@@ -48,7 +47,7 @@ class DRO:
                 train_logits, train_y, reduction="none")
        
 
-        infered_envs = self.infer_env(normed_z)
+        infered_envs = self.infer_env(normed_x)
 
         cons_infered_envs=(infered_envs.mean()-self.infer_env_mean)**2
 

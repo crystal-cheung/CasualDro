@@ -7,4 +7,4 @@ empty_array = np.array([])
 np.save("final_test_acc.npy", empty_array)
 np.save("worst_test_acc.npy", empty_array)
 
-print(empty_
+print(empty_array)

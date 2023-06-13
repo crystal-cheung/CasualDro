@@ -15,5 +15,9 @@ for i in range(len(test_accs)):
         # wirte a dictinary that synthesis the mean and sdv
         results_dict.append(results)
 
-print(latex_string)
-# 60.83$\pm$1.6 & 24.08$\pm$2.9 & 52.95$\pm$0.6 & 7.73$\pm$0.8 & 69.08$\pm$1.5 & 42.8$\pm$1.9 & 56.03$\pm$1.2 & 15.81$\pm$1.9 & 75.59$\pm$1.3 & 57.84$\pm$1.1 & 59.39$\pm$1.1 & 26.43$\pm$2.1 & 61.28$\pm$0.0 & 28.24$\pm$0.0&
+print("latex_string",latex_string,len(test_accs))
+
+#save string to txt
+with open('results.txt', 'w') as f:
+    #save latex_string to txt
+    f.write(latex_string)
