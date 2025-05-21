@@ -1,4 +1,4 @@
-# CasualDro
+# DiffusionDro
 The repo for  CasualDro
 
 This project is implemented based on [CasualDro]
