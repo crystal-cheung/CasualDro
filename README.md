@@ -123,9 +123,5 @@ We provider interface for you to include your own data. You need to inherit the
 * `train_invnoise`(optional, can set to be `None`): the tensor contains values indicating the noisy ratio of the label;
 
 The structure of the return value of `fetch_test` are similar with `fetch_train`.
-# Contact Information
 
-For help or issues using CasualDro, please submit a GitHub issue.
-
-For personal communication related to CasualDro, please contact Yong Lin (`ylindf@connect.ust.hk`).
 
